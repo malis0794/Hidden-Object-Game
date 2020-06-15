@@ -1,6 +1,8 @@
 # Hidden-Object-Game
 This is my first web game created using HTML, CSS and JavaScript.
 
+Watch a demonstration of how the game works by visiting the link: https://youtu.be/_UW7CeisTHA
+
 The body of the HTML contains all the elements you would see in the game: the meter (to show how far you are from the object), the score box, the “x” and “y” coordinates and the number of objects in the game. Moreover, the body tag declares that the “init” function will be called when the game is loaded, this will run the code between the HTML tags when the game is loaded. This body function enables you to see the elements in the game when playing it e.g. NumbOfObjects.
 
 The style contains all of the positioning, size, border and font of the elements that you see in the game. In addition, the style tag is important in the code since you couldn’t make the game look neat and not get squashed together without it. Henceforth, the style function is to style the game so that everything is not squashed together and that the game matches the design i have drawn.
