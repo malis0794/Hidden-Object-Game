@@ -1,0 +1,115 @@
+#Score {
+  border: 2px solid red;
+  padding: 5px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 20px;
+  color: #009900;
+}
+.DistanceToNearest {
+  color: #0033FF;
+}
+.NumberOfObjects {
+ color: #0033FF;
+}
+.navigation {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+.arrow1 {
+  position: absolute;
+  font-size: 50px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  bottom: 100px;
+  right: 30px;
+  color: green;
+}
+.arrow2 {
+  position: absolute;
+  font-size: 50px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  bottom: 24px;
+  color: #ff1a40;
+  right: 30px;
+}
+.arrow3 {
+  position: absolute;
+  font-size: 50px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  bottom: 60px;
+  right: 70px;
+  color: green;
+}
+#Time {
+ position: absolute;
+ bottom: 20px;
+ right: 490px;
+ font-size: 20px;
+ color: red;
+}
+.arrow4 {
+  position: absolute;
+  font-size: 50px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  bottom: 60px;
+  right: 7px;
+  color: #ff1a40;
+}
+.NumberOfObjects {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   font-size: 20px;
+}
+#divX {
+   position: absolute;
+   right: 20px;
+   bottom: 300px;
+   font-size: 20px;
+}
+#divY {
+   position: absolute;
+   right: 20px;
+   bottom: 275px;
+   font-size: 20px;
+}
+.MyGame {
+   position: absolute;
+   right: 540px;
+   font-size: 26px;
+   top: 5px;
+}
+body {
+   background-color: yellow	;
+   font-family: "Bauhaus 93";
+}
+meter {
+  width: 200px;
+  height: 25px;
+  border-radius: 10px;
+}
+.winner { 
+    background-image: url('http://www.pngall.com/wp-content/uploads/2016/04/Winner-PNG-File.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+<!---.monster {
+  background-image: url('http://vignette4.wikia.nocookie.net/looneytunes/images/3/34/Sylvester_Cat_Cartoon-psd12937.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  right: 40px;
+  background-position: 200px 100px;
+  top: 100px;
+  background-size: 150px;
+}-->
