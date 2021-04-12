@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <link rel="stylesheet" href="style.css">
+
+
+<script src="main.js"></script>
+
+</head>
+
+
+<body class="monster" onload="init()">
+
+<p class="MyGame"><marquee>My Game</marquee></p>
+
+<div class="DistanceToNearest">Distance to nearest:<br>
+  <meter value="Infinity" min="0" low="10" optimum="110" high="90" max="100" id="distanceMeter">Distance to nearest</meter><br>
+</div>
+
+
+
+
+<form class="NumberOfObjects">
+ Number of objects:<br>
+  <input type="number" id="NbObjects" min="0" max="10" value="0" onchange="NbObjectUpdate()">
+</form>
+
+<div id="Score" value="0">Score  = 0</div>
+
+<div id="Time" value="0"></div>
+
+
+<div id="divX">x: <output name="x" id="x">50</output></div>
+<div id="divY">y: <output name="y" id="y">50</output></div>
+
+<span class="arrow1">&#8593;</span>
+<span class="arrow2">&#8595;</span>
+<span class="arrow3">&#8592;</span>
+<span class="arrow4">&#8594;</span>
+
+
+
+
+</body></html>
