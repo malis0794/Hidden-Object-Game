@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<style>
+#Score {
+  border: 2px solid red;
+  padding: 5px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 20px;
+  color: #009900;
+}
+.DistanceToNearest {
+  color: #0033FF;
+}
+.NumberOfObjects {
+ color: #0033FF;
+}
+.navigation {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+.arrow1 {
+  position: absolute;
+  font-size: 50px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  bottom: 100px;
+  right: 30px;
+  color: green;
+}
+.arrow2 {
+  position: absolute;
+  font-size: 50px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  bottom: 24px;
+  color: #ff1a40;
+  right: 30px;
+}
+.arrow3 {
+  position: absolute;
+  font-size: 50px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  bottom: 60px;
+  right: 70px;
+  color: green;
+}
+#Time {
+ position: absolute;
+ bottom: 20px;
+ right: 490px;
+ font-size: 20px;
+ color: red;
+}
+.arrow4 {
+  position: absolute;
+  font-size: 50px;
+  width: 60px;
+  height: 60px;
+  display: block;
+  bottom: 60px;
+  right: 7px;
+  color: #ff1a40;
+}
+.NumberOfObjects {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   font-size: 20px;
+}
+#divX {
+   position: absolute;
+   right: 20px;
+   bottom: 300px;
+   font-size: 20px;
+}
+#divY {
+   position: absolute;
+   right: 20px;
+   bottom: 275px;
+   font-size: 20px;
+}
+.MyGame {
+   position: absolute;
+   right: 540px;
+   font-size: 26px;
+   top: 5px;
+}
+body {
+   background-color: yellow	;
+   font-family: "Bauhaus 93";
+}
+meter {
+  width: 200px;
+  height: 25px;
+  border-radius: 10px;
+}
+.winner { 
+    background-image: url('http://www.pngall.com/wp-content/uploads/2016/04/Winner-PNG-File.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+<!---.monster {
+  background-image: url('http://vignette4.wikia.nocookie.net/looneytunes/images/3/34/Sylvester_Cat_Cartoon-psd12937.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  right: 40px;
+  background-position: 200px 100px;
+  top: 100px;
+  background-size: 150px;
+}-->
+</style>
+<script type="text/javascript">
+    var nbObject = 0;
+    var score=0;
+    var won = false;
+    var hidden_objects = [];
+    var start_time;
+
+    function init() {
+      document.onkeydown = onKeyPress;
+      var score_elt = document.getElementById("Score");
+	  score_elt.setAttribute("value","0");
+      nbObjects = document.getElementById("NbObjects").value;
+      createHiddenObjects(nbObjects);
+      score = 0;
+      start_time = (new Date()).getTime() / 1000;
+      score_elt.innerHTML = 'Score  = ' + score;
+      
+    }
+    
+    function NbObjectUpdate() { // When user change the Number of Objects field
+      nbObjects = document.getElementById("NbObjects").value;
+	  createHiddenObjects(nbObjects);
+	  start_time = (new Date()).getTime() / 1000;
+      var y = Number(document.getElementById("y").value);
+      var x = Number(document.getElementById("x").value);
+	  var closest = find_closest(x,y);
+	  document.getElementById("distanceMeter").setAttribute("value", closest.distance);
+
+    }
+    
+    function onKeyPress(event) {
+	  if (won) return;
+      var y = Number(document.getElementById("y").value);
+      var x = Number(document.getElementById("x").value);
+	  switch (event.keyIdentifier) {
+	    case "Up":
+          y = y + 1;
+          document.getElementById("y").value = y;
+		  break;
+		case "Down":
+          y = y - 1;
+          document.getElementById("y").value = y;
+		  break;  
+		case "Right":
+          x = x + 1;
+          document.getElementById("x").value = x;
+		  break;  
+		case "Left":
+          x = x - 1;
+          document.getElementById("x").value = x;
+		  break;  
+	  }
+	  var closest = find_closest(x,y);
+	  document.getElementById("distanceMeter").setAttribute("value", closest.distance);
+	  if (closest.distance == 0) {
+	    var score_elt = document.getElementById("Score");
+	    var score = Number(score_elt.getAttribute("value")) + 1;
+		score_elt.setAttribute("value", score);
+		score_elt.innerHTML = 'Score  = ' + score;
+		remove_hidden_object(closest.index);
+		if (hidden_objects.length == 0 ) you_won();
+	  }
+    }
+
+    function createHiddenObjects(nbObjects) {
+	   hidden_objects.length = 0;
+       for (var i=0; i< nbObjects; i++) {
+	     hidden_objects.push({x: Math.floor(Math.random() * 100), 
+		                      y: Math.floor(Math.random() * 100)});
+	   }
+    }
+	
+	function find_closest (x, y) {
+	  var index = 0;
+	  var distance = Infinity;
+	  for (var i=0; i < hidden_objects.length; i++) {
+	    var point = hidden_objects[i];
+	    var local_distance = length_vector(point.x - x, point.y - y);
+		if (local_distance < distance) {
+		  distance = local_distance;
+		  index = i;
+		}
+	  }	
+	  return ({distance: distance, index: index});
+	}
+    
+	function remove_hidden_object(index) {
+	  hidden_objects.splice(index, 1);
+	}
+    
+    function length_vector(x,y) {
+	  return(Math.sqrt(x*x + y*y));
+	}    
+	
+	function you_won() {
+	  var body = document.getElementsByTagName("BODY")[0];
+	  body.className = "winner";
+	  var stop_time = (new Date()).getTime() / 1000;
+	  var elapsed_time = stop_time - start_time;
+	  var new_time = Math.round(elapsed_time * 100) / 100;
+	  document.getElementById("Time").innerHTML = "Time taken: " + new_time + " seconds"
+	  won = true;
+	}
+
+</script>
+
+</head>
+
+
+<body class="monster" onload="init()">
+
+<p class="MyGame"><marquee>My Game</marquee></p>
+
+<div class="DistanceToNearest">Distance to nearest:<br>
+  <meter value="Infinity" min="0" low="10" optimum="110" high="90" max="100" id="distanceMeter">Distance to nearest</meter><br>
+</div>
+
+
+
+
+<form class="NumberOfObjects">
+ Number of objects:<br>
+  <input type="number" id="NbObjects" min="0" max="10" value="0" onchange="NbObjectUpdate()">
+</form>
+
+<div id="Score" value="0">Score  = 0</div>
+
+<div id="Time" value="0"></div>
+
+
+<div id="divX">x: <output name="x" id="x">50</output></div>
+<div id="divY">y: <output name="y" id="y">50</output></div>
+
+<span class="arrow1">&#8593;</span>
+<span class="arrow2">&#8595;</span>
+<span class="arrow3">&#8592;</span>
+<span class="arrow4">&#8594;</span>
+
+
+
+
+</body></html>
